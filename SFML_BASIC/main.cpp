@@ -55,12 +55,6 @@ int main()
      
     //set up a 3D Perspective View volume
     gluPerspective(90.f, (float)width/height, 1.f, 300.0f);//fov, aspect, zNear, zFar 
-<<<<<<< HEAD
-=======
- 
-
-
->>>>>>> 9ee06265fab3ad1f90849f39954766e5d6de13f0
 
 	//load & bind the shader
 	sf::Shader shader;
@@ -91,12 +85,6 @@ int main()
              
 			//update the camera
 			camera.Update(Event);
-<<<<<<< HEAD
-=======
- 
-            
-    
->>>>>>> 9ee06265fab3ad1f90849f39954766e5d6de13f0
         } 
            
         //Prepare for drawing 
@@ -111,30 +99,15 @@ int main()
 		//get the viewing transform from the camera
 		camera.ViewingTransform();
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 9ee06265fab3ad1f90849f39954766e5d6de13f0
 		//make the world spin
 		//TODO:probably should remove this in final
 		static float ang=0.0;
 		ang+=0.01f;
-<<<<<<< HEAD
 		glRotatef(ang*2,0,1,0);//spin about y-axis	
 		
 		//draw the world
 		terrain.Draw();
 	   
-=======
-		glRotatef(ang*2,0,1,0);//spin about y-axis
-		
-
-		
-		//draw the world
-		terrain.Draw();
-
-		   
->>>>>>> 9ee06265fab3ad1f90849f39954766e5d6de13f0
         // Finally, display rendered frame on screen 
         App.display(); 
     } 
