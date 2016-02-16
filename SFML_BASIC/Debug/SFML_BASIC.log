@@ -1,9 +1,18 @@
-﻿Build started 21/01/2016 13:43:33.
-     1>Project "J:\Terrain_assessment_starter-master\SFML_BASIC\SFML_BASIC.vcxproj" on node 2 (Build target(s)).
-     1>Link:
-         SFML_BASIC.vcxproj -> J:\Terrain_assessment_starter-master\Debug\Terrain_Assessment.exe
-     1>Done Building Project "J:\Terrain_assessment_starter-master\SFML_BASIC\SFML_BASIC.vcxproj" (Build target(s)).
+﻿Build started 16/02/2016 16:29:10.
+     1>Project "C:\Users\C00179413\Desktop\3D_Terrain\SFML_BASIC\SFML_BASIC.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /I"C:\Program Files\Assimp\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\c00179413\desktop\3d_terrain\sfml_basic\main.cpp(97): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>c:\users\c00179413\desktop\3d_terrain\sfml_basic\main.cpp(98): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>c:\users\c00179413\desktop\3d_terrain\sfml_basic\main.cpp(149): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\C00179413\Desktop\3D_Terrain\Debug\Terrain_Assessment.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.3.2\lib" /LIBPATH:"C:\Program Files\Assimp\lib\x64" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\C00179413\Desktop\3D_Terrain\Debug\Terrain_Assessment.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\C00179413\Desktop\3D_Terrain\Debug\Terrain_Assessment.lib" /MACHINE:X86 Debug\main.obj
+         Debug\stdafx.obj
+         Debug\Terrain.obj
+         SFML_BASIC.vcxproj -> C:\Users\C00179413\Desktop\3D_Terrain\Debug\Terrain_Assessment.exe
+     1>Done Building Project "C:\Users\C00179413\Desktop\3D_Terrain\SFML_BASIC\SFML_BASIC.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.25
+Time Elapsed 00:00:01.87
