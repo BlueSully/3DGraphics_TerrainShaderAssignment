@@ -100,13 +100,6 @@ int main()
 
 		//get the viewing transform from the camera
 		camera.ViewingTransform();
-
-		//make the world spin
-		//TODO:probably should remove this in final
-		/*static float ang=0.0;
-		ang+=0.01f;*/
-		glRotatef(camera.yangle,1,0,0);//spin about x-axis
-		glRotatef(camera.xangle,0,1,0);//spin about y-axis
 		
 		//draw the world
 		terrain.Draw();
