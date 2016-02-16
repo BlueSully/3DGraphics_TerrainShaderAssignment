@@ -5,8 +5,8 @@
 
 Terrain::Terrain(void)
 {
-	gridWidth=100;
-	gridDepth=100;
+	gridWidth = 100;
+	gridDepth = 100;
 	heightestPoint = 0;
 	terrWidth = 50; //size of terrain in world units
 	terrDepth = 50;
@@ -59,8 +59,10 @@ float  Terrain::getHeight(float x, float y){
 	return dist;
 }
 
-float Terrain::getHeightWithFile(float x, float y){
-	float answer = image.getPixel(((x + 25) * 2) / 100 * image.getSize().x, ((y + 25) * 2) / 100 * image.getSize().y).r / 256.0f;
+float Terrain::getHeightWithFile(float x, float y)
+{
+	float answer = image.getPixel(((x + terrWidth / 2) / terrWidth) * image.getSize().x, 
+								  ((y + terrDepth / 2) / terrDepth) * image.getSize().y).r / 256.0f;//get 
 	if (heightestPoint < answer)
 	{
 		heightestPoint = answer;

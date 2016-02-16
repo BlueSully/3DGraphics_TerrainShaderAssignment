@@ -53,7 +53,7 @@ int main()
 	glLoadIdentity();
 
 	//set up a 3D Perspective View volume
-	gluPerspective(90.f, (float)(width / height), 1.f, 300.0f);//fov, aspect, zNear, zFar 
+	gluPerspective(90.f, (float)(width / height), 0.01f, 300.0f);//fov, aspect, zNear, zFar 
 
 	//Create our Terrain
 	Terrain terrain;
@@ -63,8 +63,8 @@ int main()
 	sf::Shader shader;
 	//all the lighting & texture blending code should  be put in 'fragment.glsl'
 	if(!shader.loadFromFile("vertex.glsl", "fragment.glsl")){
-        exit(1);
-    }
+		std::cout << "Could not load Shaders";
+	}
 
 	sf::Texture waterTexture;
 	if (!waterTexture.loadFromFile("water_2.png"))
@@ -94,43 +94,46 @@ int main()
 	shader.setParameter("snowTex", snowTexture);
 	shader.setParameter("tallestPoint", terrain.heightestPoint);
 
+	GLfloat light_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
+	GLfloat light_diffuse[] = { 0.9, 0.9, 0.9, 1.0 };
+	GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat materialShininess[] = { 78.0f }; // select value between 0-128, 128=shiniest
+	GLfloat light_position[] = { 100, 10, 100, 0.0 };
 
-	GLfloat materialAmbDiff[] = { 1.0f, 1.0f, 1.0f, 1.0f }; // create an array of RGBA values
-	GLfloat materialShininess[] = { 32.0f }; // select value between 0-128, 128=shiniest
-	GLfloat light_position[] = { 10, 5, -10, 0.0 };
+	// Start game loop 
+	while (App.isOpen()) 
+	{ 
+		// Process events 
+		sf::Event Event; 
+		while (App.pollEvent(Event)) 
+		{ 
+			// Close window : exit 
+			if (Event.type == sf::Event::Closed) 
+				App.close(); 
 
-    // Start game loop 
-    while (App.isOpen()) 
-    { 
-        // Process events 
-        sf::Event Event; 
-        while (App.pollEvent(Event)) 
-        { 
-            // Close window : exit 
-            if (Event.type == sf::Event::Closed) 
-                App.close(); 
-   
-            // Escape key : exit 
-            if ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Escape)) 
-                App.close(); 
-             
+			// Escape key : exit 
+			if ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Escape)) 
+				App.close(); 
+
 			//update the camera
 			camera.Update(Event);
-        } 
-		//glEnable(GL_FLAT);
-		//glEnable(GL_SMOOTH);
+		} 
+
 
 		//Prepare for drawing 
 		// Clear color and depth buffer 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 		sf::Shader::bind(&shader);
 		glEnable(GL_NORMALIZE);
 
 		//Lighting
 		glEnable(GL_LIGHTING);
 		glEnable(GL_LIGHT0);//creating light
-		glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, materialAmbDiff);
-		//glMaterialfv(GL_FRONT, GL_SHININESS, materialShininess); // set shininess of the material
+		glMaterialfv(GL_FRONT, GL_AMBIENT, light_ambient);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, light_diffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, light_specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, materialShininess); // set shininess of the material
 
 
 		glLightfv(GL_LIGHT0, GL_POSITION, light_position);// Set the light position
@@ -144,16 +147,16 @@ int main()
 		camera.ViewingTransform();
 
 		glColor3f(0.2, 0.5, 0.8);
-		static float ang=0.0;
-		ang+=0.05f;
-		glRotatef(ang*2,0,1,0);//spin about y-axis	
+		//static float ang = 0.0;
+		//ang += 0.08f;
+		//glRotatef(ang*2, 0, 1, 0);//spin about y-axis	
 		
 		//draw the world
 		terrain.Draw();
 
-        // Finally, display rendered frame on screen 
-        App.display(); 
-    } 
-   
-    return EXIT_SUCCESS; 
+		// Finally, display rendered frame on screen 
+		App.display(); 
+	} 
+
+	return EXIT_SUCCESS; 
 }
