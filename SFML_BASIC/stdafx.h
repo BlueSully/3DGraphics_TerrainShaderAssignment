@@ -9,7 +9,9 @@
 
 #include <stdio.h>
 #include <tchar.h>
-
+#include "SFML/Graphics.hpp" 
+#include "SFML/Graphics/Shader.hpp"
+#include "SFML/OpenGL.hpp" 
 
 
 // TODO: reference additional headers your program requires here
