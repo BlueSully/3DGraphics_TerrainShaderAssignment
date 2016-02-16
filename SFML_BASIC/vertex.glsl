@@ -34,7 +34,7 @@ void main()
 		specular = gl_FrontMaterial.specular * gl_LightSource[0].specular * pow(NdotHV,gl_FrontMaterial.shininess);
 	}
 
-	gl_FrontColor = globalAmbient + NdotL * diffuse + ambient ;
+	gl_FrontColor = globalAmbient + NdotL * diffuse + ambient + specular;
 	
 	gl_Position = ftransform();
 }
