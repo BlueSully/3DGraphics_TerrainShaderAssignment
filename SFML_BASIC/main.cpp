@@ -41,6 +41,10 @@ int main()
 	Camera camera;
     camera.Init(position); //create a camera
 
+	bool PERSPECTIVE = true;
+	bool ORTHOGONAL = false;
+	bool WIREFRAME = false;
+	bool keypress = false;
 	//prepare OpenGL surface for HSR 
 	glClearDepth(1.f);
 	glClearColor(0.3f, 0.3f, 0.6f, 0.f); //background colour
@@ -52,8 +56,6 @@ int main()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	//set up a 3D Perspective View volume
-	gluPerspective(90.f, (float)(width / height), 0.01f, 300.0f);//fov, aspect, zNear, zFar 
 
 	//Create our Terrain
 	Terrain terrain;
@@ -94,11 +96,11 @@ int main()
 	shader.setParameter("snowTex", snowTexture);
 	shader.setParameter("tallestPoint", terrain.heightestPoint);
 
-	GLfloat light_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
+	GLfloat light_ambient[] = { 0.3, 0.3, 0.3, 1.0 };
 	GLfloat light_diffuse[] = { 0.9, 0.9, 0.9, 1.0 };
 	GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
 	GLfloat materialShininess[] = { 78.0f }; // select value between 0-128, 128=shiniest
-	GLfloat light_position[] = { 100, 10, 100, 0.0 };
+	GLfloat light_position[] = { 10, 20, 50, 1.0 };
 
 	// Start game loop 
 	while (App.isOpen()) 
@@ -118,8 +120,43 @@ int main()
 			//update the camera
 			camera.Update(Event);
 		} 
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+		{
+			ORTHOGONAL = true;
+			PERSPECTIVE = false;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+		{
+			ORTHOGONAL = false;
+			PERSPECTIVE = true;
+		}
+		//set up a 3D Perspective View volume
+		if (PERSPECTIVE){
+			gluPerspective(90.f, (float)(width / height), 0.01f, 300.0f);//fov, aspect, zNear, zFar 
+		}
+		else if (ORTHOGONAL)
+		{
+			glOrtho(-30, 30, -30, 30, 0.001f, 3000.0f);
+		}
 
-
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::I) && keypress == false)
+		{
+			if (WIREFRAME)
+			{
+				WIREFRAME = false;
+			}
+			else if (!WIREFRAME)
+			{
+				WIREFRAME = true;
+			}
+			keypress = true;
+		}
+		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::I))
+		{
+			keypress = false;
+		}
 		//Prepare for drawing 
 		// Clear color and depth buffer 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -152,7 +189,7 @@ int main()
 		//glRotatef(ang*2, 0, 1, 0);//spin about y-axis	
 		
 		//draw the world
-		terrain.Draw();
+		terrain.Draw(WIREFRAME);
 
 		// Finally, display rendered frame on screen 
 		App.display(); 

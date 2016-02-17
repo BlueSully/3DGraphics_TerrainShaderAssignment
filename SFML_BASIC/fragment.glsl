@@ -12,7 +12,7 @@ void main(void)
 
 	if(height < 0.05f && height < 0.2f)
 	{
-		texel = texture2D(waterTex,gl_TexCoord[0].st) + specular;//water
+		texel = texture2D(waterTex,gl_TexCoord[0].st);//water
 	}
 	else if(height < 0.2f)
 	{
@@ -26,7 +26,7 @@ void main(void)
 	}
 	else if(height > 0.2f && height < 2.0f)
 	{		
-		texel = texture2D(grassTex,gl_TexCoord[0].st) + specular;//grass
+		texel = texture2D(grassTex,gl_TexCoord[0].st);//grass
 	}
 
 	else if(height < 2.0f){
@@ -43,7 +43,16 @@ void main(void)
 	{
 		texel = texture2D(rockTex,gl_TexCoord[0].st);
 	}
-
+	else if(height > 0.6f && height < 0.7f)
+	{
+		//rock, snow
+		float localheight = height - 0.05f;
+		float percent = localheight / 0.05f;
+		vec4 c1 = texture2D(rockTex,gl_TexCoord[0].st);
+		vec4 c2 = texture2D(snowTex,gl_TexCoord[0].st);
+		
+		texel = mix(c1, c2, percent);
+	}
 	else
 	{
 		texel = texture2D(snowTex,gl_TexCoord[0].st);//snow

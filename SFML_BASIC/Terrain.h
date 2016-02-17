@@ -31,7 +31,7 @@ public:
 	float heightestPoint;
 
 	void Init(std::string name);
-	void Draw();
+	void Draw(bool wireframe);
 	void NormalVector(GLfloat p1[3], GLfloat p2[3], GLfloat p3[3], GLfloat n[3]);
 };
 

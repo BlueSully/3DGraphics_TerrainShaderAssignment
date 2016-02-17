@@ -26,6 +26,7 @@ Terrain::~Terrain(void)
 	delete [] vertices;
 	delete [] colors;
 	delete [] normals;
+	delete [] texCoords;
 }
 
 //interpolate between two values
@@ -177,9 +178,14 @@ void Terrain::NormalVector(GLfloat p1[3], GLfloat p2[3], GLfloat p3[3], GLfloat 
 	n[2] = v1[0] * v2[1] - v2[0] * v1[1];
 }
 
-void Terrain::Draw()
+void Terrain::Draw(bool wireframe)
 {
-	glBegin(GL_TRIANGLES);
+	if (wireframe)
+	glBegin(GL_LINES);
+	else {
+		glBegin(GL_TRIANGLES);
+	}
+
 	for(int i = 0; i < numVerts; i++)
 	{
 		glColor3fv(colors[i]);
